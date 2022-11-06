@@ -1,6 +1,8 @@
 <script setup>
+import {onBeforeUnmount} from 'vue';
 import {useStore} from './store';
-import ComConnector from "./components/ComConnector.vue";
+import Canvas from "./components/Canvas.vue";
+import Header from "./components/Header.vue";
 
 const store = useStore();
 
@@ -21,20 +23,13 @@ if (urlParams.has('name') && urlParams.get('name').length) {
 window.toggleAlexanMode = () => {
     store.debugMode = !store.debugMode;
 };
+
+onBeforeUnmount(() => {
+    store.disconnectCom();
+});
 </script>
 
 <template>
-<header>
-    <a>Аз есмь: {{ store.user }}</a>
-    <a :href="`//faces.rudych.ru/route.php?key=${store.user}&name=${store.name}&route=111`">Пойду дальше на
-        опросники</a>
-</header>
-<h1 v-if="!store.comAvailable && !store.debugMode">Данный браузер не поддерживается!</h1>
-<ComConnector v-else-if="!store.debugMode"/>
+<Header/>
+<Canvas/>
 </template>
-
-<style scoped>
-header a {
-    padding: 10px
-}
-</style>
