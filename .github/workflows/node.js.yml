@@ -2,7 +2,7 @@ name: CI
 on: [push]
 jobs:
   build:
-    name: Test
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -13,4 +13,5 @@ jobs:
       - run: yarn build
       - uses: actions/upload-artifact@v3.1.1
         with:
+          name: dist
           path: dist
