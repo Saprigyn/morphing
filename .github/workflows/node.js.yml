@@ -11,6 +11,7 @@ jobs:
           node-version: 18
       - run: yarn install
       - run: yarn build
+      - run: mv dist/index.html dist/irun.php
       - uses: actions/upload-artifact@v3.1.1
         with:
           name: dist
